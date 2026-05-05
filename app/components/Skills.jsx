@@ -56,9 +56,8 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="relative py-24 bg-[var(--bg-secondary)] overflow-hidden transition-colors duration-300">
+    <section id="skills" className="relative pt-28 md:pt-32 pb-24 overflow-hidden transition-colors duration-300">
       {/* Background Effects */}
-      <div className="absolute inset-0 z-0 section-grid"></div>
       <div className="absolute top-[10%] right-[0%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none z-0" style={{ backgroundColor: 'var(--orb-indigo)' }}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

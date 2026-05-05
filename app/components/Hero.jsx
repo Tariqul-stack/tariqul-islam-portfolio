@@ -7,7 +7,7 @@ import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 import { RiArrowDownLine } from 'react-icons/ri';
 
 const roles = [
-  "Junior Frontend Developer",
+  "Frontend Developer",
   "React Developer",
   "Next.js Developer",
   "UI Enthusiast"
@@ -24,7 +24,7 @@ export default function Hero() {
   useEffect(() => {
     let timeout;
     const currentRole = roles[currentRoleIndex];
-    
+
     if (isDeleting) {
       timeout = setTimeout(() => {
         setCurrentText(currentRole.substring(0, currentText.length - 1));
@@ -82,8 +82,8 @@ export default function Hero() {
 
   const textVariants = {
     hidden: { x: -50, opacity: 0 },
-    visible: { 
-      x: 0, 
+    visible: {
+      x: 0,
       opacity: 1,
       transition: { type: 'spring', stiffness: 100, damping: 20 }
     },
@@ -91,8 +91,8 @@ export default function Hero() {
 
   const imageVariants = {
     hidden: { x: 50, opacity: 0 },
-    visible: { 
-      x: 0, 
+    visible: {
+      x: 0,
       opacity: 1,
       transition: { type: 'spring', stiffness: 100, damping: 20, delay: 0.5 }
     },
@@ -111,22 +111,21 @@ export default function Hero() {
   };
 
   return (
-    <section 
-      id="home" 
-      className="relative min-h-screen flex items-center justify-center bg-[var(--bg-primary)] overflow-hidden pt-24 transition-colors duration-300"
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-300"
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 z-0 section-grid"></div>
-      
+
       {/* Blurred Orbs */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none" style={{ backgroundColor: 'var(--orb-teal)' }}></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none" style={{ backgroundColor: 'var(--orb-indigo)' }}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-10 lg:py-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          
+
           {/* Left Side: Text Content */}
-          <motion.div 
+          <motion.div
             className="flex flex-col space-y-6 order-2 lg:order-1 mt-8 lg:mt-0"
             variants={containerVariants}
             initial="hidden"
@@ -164,15 +163,15 @@ export default function Hero() {
 
             {/* CTA Buttons */}
             <motion.div variants={textVariants} className="flex flex-wrap gap-4 pt-4">
-              <button 
+              <button
                 onClick={scrollToProjects}
                 className="px-8 py-3 rounded-full font-medium text-[var(--text-primary)] bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] hover:shadow-lg hover:shadow-[#2dd4bf]/25 transition-all duration-300 transform hover:-translate-y-1"
               >
                 View Projects
               </button>
-              <a 
-                href="/resume.pdf" 
-                target="_blank" 
+              <a
+                href="/resume.pdf"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="glass-card px-8 py-3 rounded-full font-medium text-[#2dd4bf] hover:bg-[#2dd4bf]/10 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center"
               >
@@ -195,7 +194,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Right Side: Profile Image */}
-          <motion.div 
+          <motion.div
             className="order-1 lg:order-2 relative flex justify-center items-center mt-8 lg:mt-0"
             variants={imageVariants}
             initial="hidden"
@@ -234,7 +233,7 @@ export default function Hero() {
             </div>
 
             {/* Floating Badges */}
-            <motion.div 
+            <motion.div
               custom={1}
               variants={floatingBadgeVariants}
               animate="animate"
@@ -244,7 +243,7 @@ export default function Hero() {
               <span className="font-medium text-sm">React</span>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               custom={2}
               variants={floatingBadgeVariants}
               animate="animate"
@@ -254,7 +253,7 @@ export default function Hero() {
               <span className="font-medium text-sm">Next.js</span>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               custom={3}
               variants={floatingBadgeVariants}
               animate="animate"
@@ -268,7 +267,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div 
+      <motion.div
         className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 z-20 ${showScroll ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: showScroll ? 1 : 0 }}

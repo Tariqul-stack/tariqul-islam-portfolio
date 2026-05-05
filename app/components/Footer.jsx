@@ -65,7 +65,11 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-transparent border-t border-[var(--glass-border)] pt-16 pb-8 transition-colors duration-300">
+    <footer className="footer-glass pt-16 pb-8 transition-colors duration-300 overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute bottom-0 left-[10%] w-[200px] h-[200px] rounded-full blur-[80px] pointer-events-none opacity-20" style={{ backgroundColor: '#2dd4bf' }}></div>
+      <div className="absolute top-0 right-[10%] w-[200px] h-[200px] rounded-full blur-[80px] pointer-events-none opacity-10" style={{ backgroundColor: '#6366f1' }}></div>
+
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
         {/* Top Area */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
@@ -115,8 +119,8 @@ export default function Footer() {
         <div className="h-px bg-gradient-to-r from-transparent via-[var(--glass-border)] to-transparent mb-8"></div>
 
         {/* Bottom Area */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[var(--text-muted)] text-xs">
-          <p>© 2025 Tariqul Islam. All rights reserved.</p>
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[var(--text-muted)] text-xs relative z-10">
+          <p>© {new Date().getFullYear()} Tariqul Islam. All rights reserved.</p>
           <p className="flex items-center gap-1">
             Built with <span className="text-red-500 text-sm">❤️</span> using Next.js & Tailwind CSS
           </p>

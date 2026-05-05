@@ -8,7 +8,7 @@
 
 :root[data-theme="dark"] {
   --bg-primary: #0a0f1e;
-  --bg-secondary: #0d1424;
+  --bg-secondary: #0d1628;
   --bg-card: rgba(15, 23, 42, 0.7);
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
@@ -16,13 +16,15 @@
   --border-color: rgba(45, 212, 191, 0.15);
   --glass-bg: rgba(15, 23, 42, 0.6);
   --glass-border: rgba(45, 212, 191, 0.2);
-  --orb-teal: rgba(45, 212, 191, 0.08);
-  --orb-indigo: rgba(99, 102, 241, 0.08);
+  --orb-teal: rgba(45, 212, 191, 0.12);
+  --orb-indigo: rgba(99, 102, 241, 0.10);
+  --global-bg: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(45,212,191,0.15), transparent), #0a0f1e;
+  --dot-color: rgba(45,212,191,0.4);
 }
 
 :root[data-theme="light"] {
   --bg-primary: #f0f9ff;
-  --bg-secondary: #e0f2fe;
+  --bg-secondary: #e8f4fd;
   --bg-card: rgba(255, 255, 255, 0.7);
   --text-primary: #0f172a;
   --text-secondary: #334155;
@@ -30,8 +32,10 @@
   --border-color: rgba(45, 212, 191, 0.3);
   --glass-bg: rgba(255, 255, 255, 0.55);
   --glass-border: rgba(45, 212, 191, 0.35);
-  --orb-teal: rgba(45, 212, 191, 0.15);
-  --orb-indigo: rgba(99, 102, 241, 0.12);
+  --orb-teal: rgba(45, 212, 191, 0.20);
+  --orb-indigo: rgba(99, 102, 241, 0.15);
+  --global-bg: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(45,212,191,0.12), transparent), #f0f9ff;
+  --dot-color: rgba(45,212,191,0.25);
 }
 
 html {
@@ -132,22 +136,17 @@ body {
   z-index: -1;
 }
 
-:root[data-theme="dark"] .navbar-glass {
+.navbar-glass {
   background: rgba(10, 15, 30, 0.65);
-  border-bottom: 1px solid rgba(45, 212, 191, 0.12);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -1px 0 rgba(45, 212, 191, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(45, 212, 191, 0.08);
+  position: relative;
 }
 
 :root[data-theme="light"] .navbar-glass {
   background: rgba(255, 255, 255, 0.55);
-  border-bottom: 1px solid rgba(45, 212, 191, 0.2);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 1px 0 rgba(45, 212, 191, 0.15);
 }
 
 .navbar-glass.scrolled {
@@ -188,3 +187,43 @@ body {
   background: #2dd4bf;
   border-radius: 10px;
 }
+/* ===== FOOTER GLASSMORPHISM ===== */
+.footer-glass {
+  background: rgba(13, 20, 36, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(45, 212, 191, 0.15);
+  box-shadow:
+    0 -4px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.footer-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(45, 212, 191, 0.4),
+    rgba(99, 102, 241, 0.4),
+    transparent
+  );
+  pointer-events: none;
+}
+
+:root[data-theme="light"] .footer-glass {
+  background: rgba(219, 234, 254, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(45, 212, 191, 0.25);
+  box-shadow:
+    0 -4px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+

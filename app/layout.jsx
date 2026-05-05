@@ -35,15 +35,42 @@ FAVICON INSTRUCTIONS:
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth" data-theme="dark">
-      <body className="bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[color:rgba(45,212,191,0.3)] selection:text-[#2dd4bf] transition-colors duration-300">
+      <body className="text-[var(--text-primary)] selection:bg-[color:rgba(45,212,191,0.3)] selection:text-[#2dd4bf] transition-colors duration-300">
         <ClientProviders>
           <Loader />
           <CursorGlow />
-          <Navbar />
-          <PageWrapper>
-            {children}
-          </PageWrapper>
-          <Footer />
+          
+          <main className="relative min-h-screen overflow-hidden">
+            {/* Fixed glow background - stays behind everything */}
+            <div 
+              aria-hidden="true" 
+              className="fixed inset-0 -z-20"
+              style={{ background: 'var(--global-bg)' }}
+            />
+            {/* Fixed dot grid - stays behind everything */}
+            <div 
+              aria-hidden="true"
+              className="fixed inset-0 -z-10 opacity-[0.12]"
+              style={{
+                backgroundImage: 'radial-gradient(var(--dot-color) 1px, transparent 1px)',
+                backgroundSize: '22px 22px'
+              }}
+            />
+            {/* Noise texture overlay */}
+            <div 
+              aria-hidden="true"
+              className="fixed inset-0 -z-10 pointer-events-none opacity-[0.03]"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+              }}
+            />
+
+            <Navbar />
+            <PageWrapper>
+              {children}
+            </PageWrapper>
+            <Footer />
+          </main>
         </ClientProviders>
       </body>
     </html>

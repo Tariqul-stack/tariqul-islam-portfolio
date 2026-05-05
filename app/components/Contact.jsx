@@ -107,9 +107,8 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-24 bg-[var(--bg-primary)] overflow-hidden transition-colors duration-300">
+    <section id="contact" className="relative pt-28 md:pt-32 pb-24 overflow-hidden transition-colors duration-300">
       {/* Background Effects */}
-      <div className="absolute inset-0 z-0 section-grid"></div>
       <div className="absolute top-[10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none z-0" style={{ backgroundColor: 'var(--orb-teal)' }}></div>
       <div className="absolute bottom-[10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none z-0" style={{ backgroundColor: 'var(--orb-indigo)' }}></div>
 

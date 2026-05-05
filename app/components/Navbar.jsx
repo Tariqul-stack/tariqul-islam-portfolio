@@ -19,7 +19,12 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -151,19 +156,21 @@ export default function Navbar() {
                 <button
                   onClick={toggleTheme}
                   className="rounded-full p-2 bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[#2dd4bf] transition-transform duration-300 hover:scale-110"
-                  aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                  aria-label={!mounted ? "Toggle theme" : `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                 >
                   <AnimatePresence mode="wait" initial={false}>
-                    <motion.span
-                      key={theme}
-                      initial={{ opacity: 0, rotate: -90, scale: 0.75 }}
-                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                      exit={{ opacity: 0, rotate: 90, scale: 0.75 }}
-                      transition={{ duration: 0.2 }}
-                      className="flex"
-                    >
-                      {theme === 'dark' ? <MdLightMode className="h-6 w-6" /> : <MdDarkMode className="h-6 w-6" />}
-                    </motion.span>
+                    {mounted && (
+                      <motion.span
+                        key={theme}
+                        initial={{ opacity: 0, rotate: -90, scale: 0.75 }}
+                        animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                        exit={{ opacity: 0, rotate: 90, scale: 0.75 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex"
+                      >
+                        {theme === 'dark' ? <MdLightMode className="h-6 w-6" /> : <MdDarkMode className="h-6 w-6" />}
+                      </motion.span>
+                    )}
                   </AnimatePresence>
                 </button>
               </motion.div>
@@ -229,17 +236,19 @@ export default function Navbar() {
                   className="w-full flex items-center justify-center gap-3 rounded-full p-3 bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[#2dd4bf]"
                 >
                   <AnimatePresence mode="wait" initial={false}>
-                    <motion.span
-                      key={theme}
-                      initial={{ opacity: 0, rotate: -90, scale: 0.75 }}
-                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                      exit={{ opacity: 0, rotate: 90, scale: 0.75 }}
-                      transition={{ duration: 0.2 }}
-                      className="flex items-center gap-2"
-                    >
-                      {theme === 'dark' ? <MdLightMode className="h-5 w-5" /> : <MdDarkMode className="h-5 w-5" />}
-                      <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-                    </motion.span>
+                    {mounted && (
+                      <motion.span
+                        key={theme}
+                        initial={{ opacity: 0, rotate: -90, scale: 0.75 }}
+                        animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                        exit={{ opacity: 0, rotate: 90, scale: 0.75 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-center gap-2"
+                      >
+                        {theme === 'dark' ? <MdLightMode className="h-5 w-5" /> : <MdDarkMode className="h-5 w-5" />}
+                        <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                      </motion.span>
+                    )}
                   </AnimatePresence>
                 </button>
               </div>
