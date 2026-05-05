@@ -1,36 +1,15 @@
-/*
-EMAILJS SETUP:
-1. Go to https://emailjs.com and create free account
-2. Add Email Service → get SERVICE_ID
-3. Create Email Template → get TEMPLATE_ID
-   Template variables to use:
-   - {{from_name}} → sender name
-   - {{from_email}} → sender email
-   - {{subject}} → email subject
-   - {{message}} → email message
-   - {{to_name}} → "Tariqul Islam"
-4. Get PUBLIC_KEY from Account → API Keys
-5. Replace the 3 placeholder values in this file
-6. Run: npm install @emailjs/browser
-*/
-
 'use client';
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import { SiGithub, SiWhatsapp } from 'react-icons/si';
 import { MdEmail, MdLocationOn, MdPhone, MdAccessTime } from 'react-icons/md';
 import { FiSend, FiLinkedin } from 'react-icons/fi';
 
-const SERVICE_ID = "YOUR_SERVICE_ID";
-const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const PUBLIC_KEY = "YOUR_PUBLIC_KEY";
-
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [status, setStatus] = useState('idle');
 
   const subjectOptions = [
     "Job Opportunity",
@@ -42,7 +21,6 @@ export default function Contact() {
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
-    // Clear error on change
     if (errors[id]) {
       setErrors((prev) => ({ ...prev, [id]: null }));
     }
@@ -51,61 +29,62 @@ export default function Contact() {
   const validate = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required';
-    
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Invalid email format';
     }
-    
     if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
     if (!formData.message.trim()) newErrors.message = 'Message is required';
-    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+    setStatus("loading");
 
-    setStatus('loading');
+    // Using fetch directly to EmailJS REST API
+    // This avoids all SDK initialization issues
+    try {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: 'service_b9htjn6',
+          template_id: 'template_sinfy9n',
+          user_id: 'V5UTpcZ_ccaw9tPR-',
+          template_params: {
+            from_name: formData.name,
+            from_email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+            to_name: 'Tariqul Islam',
+          },
+        }),
+      });
 
-    // If placeholders are not replaced, simulate success for demonstration
-    if (SERVICE_ID === "YOUR_SERVICE_ID") {
-      setTimeout(() => {
-        setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => setStatus('idle'), 5000);
-      }, 1500);
-      return;
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        const errorText = await response.text();
+        console.error("EmailJS API Error:", response.status, errorText);
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch (error) {
+      console.error("Network Error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
     }
-
-    emailjs.send(
-      SERVICE_ID,
-      TEMPLATE_ID,
-      {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        to_name: "Tariqul Islam",
-      },
-      PUBLIC_KEY
-    )
-    .then(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setStatus('idle'), 5000);
-    })
-    .catch((error) => {
-      console.error('EmailJS Error:', error);
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
-    });
   };
 
-  const inputClasses = (hasError) => 
+  const inputClasses = (hasError) =>
     `glass-input w-full text-[var(--text-primary)] border ${hasError ? 'border-red-500' : 'border-[var(--glass-border)]'} rounded-lg px-4 py-3 focus:outline-none focus:border-[#2dd4bf] focus:ring-1 focus:ring-[#2dd4bf] transition-colors placeholder:text-[var(--text-muted)]`;
 
   const headerVariants = {
@@ -135,9 +114,9 @@ export default function Contact() {
       <div className="absolute bottom-[10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none z-0" style={{ backgroundColor: 'var(--orb-indigo)' }}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -154,9 +133,9 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          
+
           {/* Left Side: Contact Info */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -209,9 +188,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-[var(--text-secondary)] mb-1">Location</p>
-                  <p className="text-[var(--text-primary)] font-medium">
-                    Daqing, China
-                  </p>
+                  <p className="text-[var(--text-primary)] font-medium">Daqing, China</p>
                 </div>
               </div>
             </div>
@@ -226,11 +203,11 @@ export default function Contact() {
                   { icon: MdEmail, href: 'mailto:tariqul.dev0@gmail.com' },
                   { icon: SiWhatsapp, href: 'https://wa.me/8801911296716' }
                 ].map((social, i) => (
-                  <a 
-                    key={i} 
-                    href={social.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    key={i}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="glass-card w-12 h-12 rounded-lg flex items-center justify-center text-[#2dd4bf] hover:bg-[#2dd4bf] hover:text-[#0a0f1e] hover:scale-110 transition-all duration-300"
                   >
                     <social.icon className="w-5 h-5" />
@@ -260,37 +237,37 @@ export default function Contact() {
             className="glass-card p-6 md:p-8 relative"
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              
+
               <motion.div variants={inputItemVariants}>
                 <label htmlFor="name" className="block text-[#2dd4bf] text-sm font-medium mb-2">Full Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id="name"
                   value={formData.name}
                   onChange={handleChange}
                   className={inputClasses(errors.name)}
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                 />
                 {errors.name && <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.name}</p>}
               </motion.div>
 
               <motion.div variants={inputItemVariants}>
                 <label htmlFor="email" className="block text-[#2dd4bf] text-sm font-medium mb-2">Email Address</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
                   className={inputClasses(errors.email)}
-                  placeholder="john@example.com"
+                  placeholder="your.email@example.com"
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.email}</p>}
               </motion.div>
 
               <motion.div variants={inputItemVariants}>
                 <label htmlFor="subject" className="block text-[#2dd4bf] text-sm font-medium mb-2">Subject</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id="subject"
                   value={formData.subject}
                   onChange={handleChange}
@@ -298,22 +275,19 @@ export default function Contact() {
                   placeholder="What is this regarding?"
                 />
                 {errors.subject && <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.subject}</p>}
-                
-                {/* Subject Quick-select Chips */}
                 <div className="flex flex-wrap gap-2 mt-3">
                   {subjectOptions.map(opt => (
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       key={opt}
                       onClick={() => {
-                        setFormData(prev => ({...prev, subject: opt}));
-                        if (errors.subject) setErrors(prev => ({...prev, subject: null}));
+                        setFormData(prev => ({ ...prev, subject: opt }));
+                        if (errors.subject) setErrors(prev => ({ ...prev, subject: null }));
                       }}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-                        formData.subject === opt 
-                          ? 'bg-[#2dd4bf] text-[#0a0f1e] border-[#2dd4bf]' 
-                          : 'bg-[var(--glass-bg)] text-[var(--text-secondary)] border-[var(--glass-border)] hover:border-[#2dd4bf]/50 hover:text-[var(--text-primary)]'
-                      }`}
+                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${formData.subject === opt
+                        ? 'bg-[#2dd4bf] text-[#0a0f1e] border-[#2dd4bf]'
+                        : 'bg-[var(--glass-bg)] text-[var(--text-secondary)] border-[var(--glass-border)] hover:border-[#2dd4bf]/50 hover:text-[var(--text-primary)]'
+                        }`}
                     >
                       {opt}
                     </button>
@@ -323,26 +297,26 @@ export default function Contact() {
 
               <motion.div variants={inputItemVariants}>
                 <label htmlFor="message" className="block text-[#2dd4bf] text-sm font-medium mb-2">Message</label>
-                <textarea 
+                <textarea
                   id="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows="4"
                   className={`${inputClasses(errors.message)} resize-none`}
-                  placeholder="Hello Tariqul, I&apos;d like to talk about..."
+                  placeholder="Hello Tariqul, I'd like to talk about..."
                 ></textarea>
                 {errors.message && <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.message}</p>}
               </motion.div>
 
               <motion.div variants={inputItemVariants} className="pt-2">
-                <motion.button 
+                <motion.button
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={status === 'loading'}
-                  className="w-full py-4 rounded-lg bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] text-[var(--text-primary)] font-bold text-lg hover:shadow-lg hover:shadow-[#2dd4bf]/25 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full py-4 rounded-lg bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] text-white font-bold text-lg hover:shadow-lg hover:shadow-[#2dd4bf]/25 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {status === 'idle' && <><FiSend className="w-5 h-5" /> Send Message 🚀</>}
+                  {status === 'idle' && <><FiSend className="w-5 h-5" /> Send Message</>}
                   {status === 'loading' && <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> Sending...</>}
                   {status === 'success' && <>Message Sent! ✅</>}
                   {status === 'error' && <>Failed. Try Again ❌</>}
@@ -355,29 +329,28 @@ export default function Contact() {
         </div>
 
         {/* Bottom CTA Strip */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-20 w-full glass-card p-8 relative overflow-hidden"
         >
-          {/* Gradient Border Hack */}
           <div className="absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] -z-10">
             <div className="absolute inset-[2px] bg-[var(--bg-card)] rounded-[14px]"></div>
           </div>
-          
+
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">Prefer a quick chat? Reach out directly</h3>
               <p className="text-[var(--text-secondary)] text-sm">I&apos;m always active on WhatsApp and Email.</p>
             </div>
-            
+
             <div className="flex flex-wrap justify-center gap-4">
               <a href="mailto:tariqul.dev0@gmail.com" className="glass-card px-6 py-3 rounded-xl text-[var(--text-primary)] font-medium hover:border-[#2dd4bf]/50 hover:bg-white/5 transition-colors flex items-center gap-2">
                 <MdEmail className="text-[#2dd4bf] w-5 h-5" /> Email Me
               </a>
-              <a href="https://wa.me/8801911296716" target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] text-[var(--text-primary)] font-medium hover:shadow-lg hover:shadow-[#2dd4bf]/25 transition-all duration-300 flex items-center gap-2">
+              <a href="https://wa.me/8801911296716" target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] text-white font-medium hover:shadow-lg hover:shadow-[#2dd4bf]/25 transition-all duration-300 flex items-center gap-2">
                 <SiWhatsapp className="w-5 h-5" /> WhatsApp
               </a>
             </div>
