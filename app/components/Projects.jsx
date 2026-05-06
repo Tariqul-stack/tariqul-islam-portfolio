@@ -8,6 +8,25 @@ import { FiGithub, FiExternalLink, FiCheck } from 'react-icons/fi';
 const projectsData = [
   {
     id: 1,
+    name: 'QurbaniHat',
+    subtitle: 'Livestock Booking Platform',
+    description: 'A full-stack web application where users can browse livestock for Qurbani, view animal details, and place bookings after authentication.',
+    features: [
+      'Animal filtering by type, price & weight',
+      'Google OAuth + Email authentication',
+      'Booking system with profile management',
+      'Card animations with React Spring',
+      'Lottie cow mascot as loading screen',
+      'Toast notifications with Animate.css'
+    ],
+    techStack: ['Next.js 16', 'Tailwind CSS', 'Better Auth', 'MongoDB', 'React Spring', 'Lottie'],
+    github: 'https://github.com/Tariqul-stack/qurbanihat',
+    live: 'https://qurbani-hat-tan.vercel.app',
+    category: 'Full Stack',
+    image: '/images/qurbanihat.png',
+  },
+  {
+    id: 2,
     name: 'KeenKeeper',
     subtitle: 'Friendship Tracker Web App',
     description: 'A responsive friendship tracker app that helps users stay connected, log interactions, and visualize communication patterns with friends.',
@@ -21,12 +40,12 @@ const projectsData = [
     ],
     techStack: ['Next.js', 'React.js', 'Tailwind CSS', 'DaisyUI', 'Recharts', 'Lucide React', 'Sonner'],
     github: 'https://github.com/Tariqul-stack/KeenKeeper',
-    live: '',
+    live: 'https://keenkeeper-website.netlify.app',
     category: 'Frontend',
     image: '/images/keenkeeper.png',
   },
   {
-    id: 2,
+    id: 3,
     name: 'Book Mood',
     subtitle: 'Book Management Web App',
     description: 'A book management app enabling users to explore titles, save to wishlist, mark books as read, and track reading progress visually.',
@@ -42,7 +61,7 @@ const projectsData = [
     ],
     techStack: ['React.js', 'React Router', 'Context API', 'Tailwind CSS', 'DaisyUI', 'Recharts', 'React Toastify'],
     github: 'https://github.com/Tariqul-stack/book-mood',
-    live: '',
+    live: 'https://book-mood.netlify.app',
     category: 'Frontend',
     image: '/images/bookmood.png',
   }
@@ -65,26 +84,33 @@ const ProjectCard = ({ project }) => {
       <div className="relative h-52 w-full overflow-hidden bg-[var(--bg-secondary)]">
         <div className="absolute inset-0 group-hover:scale-[1.05] transition-transform duration-500 ease-out">
           {!imgError ? (
-            <Image 
-              src={project.image} 
-              alt={project.name} 
-              fill 
-              className="object-cover" 
-              onError={() => setImgError(true)} 
+            <Image
+              src={project.image}
+              alt={project.name}
+              fill
+              className="object-cover"
+              onError={() => setImgError(true)}
               sizes="(max-width: 768px) 100vw, 50vw"
               unoptimized
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[var(--bg-primary)] via-[var(--bg-secondary)] to-[#2dd4bf]/20 flex flex-col items-center justify-center p-4 text-center">
-              <span className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] tracking-wider drop-shadow-sm">
-                {project.name}
+            <div
+              className={`w-full h-full flex flex-col items-center justify-center p-4 text-center ${project.name === 'QurbaniHat'
+                ? 'bg-gradient-to-br from-[#059669] to-[#2dd4bf]'
+                : 'bg-gradient-to-br from-[var(--bg-primary)] via-[var(--bg-secondary)] to-[#2dd4bf]/20'
+                }`}
+            >
+              <span className={`text-3xl font-extrabold tracking-wider drop-shadow-sm ${project.name === 'QurbaniHat' ? 'text-white' : 'text-transparent bg-clip-text bg-gradient-to-r from-[#2dd4bf] to-[#6366f1]'
+                }`}>
+                {project.name} {project.name === 'QurbaniHat' ? '🐄' : ''}
               </span>
             </div>
           )}
         </div>
-        
+
         {/* Badges Overlay */}
-        <div className="absolute top-3 left-3 glass-card px-3 py-1 rounded-full text-xs font-semibold text-[#2dd4bf] z-10">
+        <div className={`absolute top-3 left-3 glass-card px-3 py-1 rounded-full text-xs font-semibold z-10 ${project.category === 'Full Stack' ? 'text-[#a78bfa]' : 'text-[#2dd4bf]'
+          }`}>
           {project.category}
         </div>
         <div className="absolute top-3 right-3 glass-card px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-2 z-10">
@@ -103,7 +129,7 @@ const ProjectCard = ({ project }) => {
       <div className="p-6 flex flex-col flex-1">
         <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-1">{project.name}</h3>
         <p className="text-[#2dd4bf] text-sm font-medium mb-4">{project.subtitle}</p>
-        
+
         <p className="text-[var(--text-secondary)] text-sm line-clamp-3 mb-4 leading-relaxed">
           {project.description}
         </p>
@@ -126,28 +152,28 @@ const ProjectCard = ({ project }) => {
         </div>
 
         <div className="flex flex-wrap gap-3 pt-4">
-          <a 
-            href={project.github} 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
             className="glass-card flex-1 inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-300 text-sm font-medium"
           >
             <FiGithub className="w-4 h-4" />
             View Code
           </a>
           {project.live ? (
-            <a 
-              href={project.live} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex-1 inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] text-[var(--text-primary)] hover:shadow-lg hover:shadow-[#2dd4bf]/25 transition-all duration-300 text-sm font-medium"
             >
               <FiExternalLink className="w-4 h-4" />
               Live Demo
             </a>
           ) : (
-            <button 
-              disabled 
+            <button
+              disabled
               className="glass-card flex-1 inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded-lg text-[var(--text-muted)] cursor-not-allowed text-sm font-medium"
             >
               Coming Soon
@@ -163,16 +189,16 @@ export default function Projects() {
   const [activeTab, setActiveTab] = useState('All');
   const tabs = ['All', 'Frontend', 'Full Stack'];
 
-  const filteredProjects = activeTab === 'All' 
-    ? projectsData 
+  const filteredProjects = activeTab === 'All'
+    ? projectsData
     : projectsData.filter(project => project.category === activeTab);
 
   const headerVariants = {
     hidden: { opacity: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.6, ease: "easeOut" } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
     }
   };
 
@@ -183,9 +209,9 @@ export default function Projects() {
       <div className="absolute top-[10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none z-0" style={{ backgroundColor: 'var(--orb-indigo)' }}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -207,11 +233,10 @@ export default function Projects() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeTab === tab
-                  ? 'bg-[#2dd4bf] text-[#0a0f1e] shadow-[0_0_15px_rgba(45,212,191,0.4)]'
-                  : 'bg-transparent text-[var(--text-secondary)] hover:text-[#2dd4bf] border border-transparent hover:border-[#2dd4bf]/30'
-              }`}
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === tab
+                ? 'bg-[#2dd4bf] text-[#0a0f1e] shadow-[0_0_15px_rgba(45,212,191,0.4)]'
+                : 'bg-transparent text-[var(--text-secondary)] hover:text-[#2dd4bf] border border-transparent hover:border-[#2dd4bf]/30'
+                }`}
             >
               {tab}
             </button>
@@ -219,7 +244,7 @@ export default function Projects() {
         </div>
 
         {/* Projects Grid */}
-        <motion.div 
+        <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 min-h-[400px]"
         >
@@ -229,9 +254,9 @@ export default function Projects() {
             ))}
           </AnimatePresence>
           {filteredProjects.length === 0 && (
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="col-span-1 md:col-span-2 text-center text-[var(--text-muted)] py-20"
             >
               No projects found in this category.
@@ -240,7 +265,7 @@ export default function Projects() {
         </motion.div>
 
         {/* More Projects Coming Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
