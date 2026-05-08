@@ -2,34 +2,41 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
 import {
   SiNextdotjs,
   SiReact,
   SiTailwindcss,
   SiMongodb,
-  SiDaisy,
   SiReactrouter,
-  SiGit,
-  SiVercel,
+  SiDaisyui,
 } from "react-icons/si";
-import { TbChartPie, TbBell, TbComponents, TbApi } from "react-icons/tb";
+import { TbChartPie } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
+import { RiReactjsLine } from "react-icons/ri";
+import { useTheme } from "../context/ThemeContext";
 
-const projectsData = [
+const TECH_ICONS = {
+  "Next.js": SiNextdotjs,
+  "Next.js 16": SiNextdotjs,
+  "React.js": SiReact,
+  "Tailwind CSS": SiTailwindcss,
+  MongoDB: SiMongodb,
+  "Better Auth": MdSecurity,
+  "React Router": SiReactrouter,
+  Recharts: TbChartPie,
+  DaisyUI: SiDaisyui,
+  "React Icons": RiReactjsLine,
+};
+
+const PROJECTS = [
   {
     id: 1,
     name: "QurbaniHat",
     tagline: "LIVESTOCK BOOKING PLATFORM",
     description:
-      "A full-stack web application where users can browse livestock for Qurbani, view animal details, and place bookings after authentication with seamless payment integration.",
-    techStack: [
-      { name: "Next.js 16", icon: SiNextdotjs },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "Better Auth", icon: MdSecurity },
-      { name: "MongoDB", icon: SiMongodb },
-    ],
+      "A full-stack web app where users browse livestock for Qurbani, view animal details, and place bookings after authentication with seamless payment integration.",
+    techStack: ["Next.js 16", "Tailwind CSS", "Better Auth", "MongoDB"],
     github: "https://github.com/Tariqul-stack/qurbanihat",
     live: "https://qurbani-hat-tan.vercel.app",
     category: "Full Stack",
@@ -44,13 +51,8 @@ const projectsData = [
     name: "KeenKeeper",
     tagline: "FRIENDSHIP TRACKING APP",
     description:
-      "A responsive friendship tracker app that helps users stay connected, log interactions, and visualize communication patterns with friends in a beautiful timeline view.",
-    techStack: [
-      { name: "Next.js", icon: SiNextdotjs },
-      { name: "React.js", icon: SiReact },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "Recharts", icon: TbChartPie },
-    ],
+      "A responsive friendship tracker that helps users stay connected, log interactions, and visualize communication patterns with friends in a beautiful timeline view.",
+    techStack: ["Next.js", "React.js", "Tailwind CSS", "Recharts", "DaisyUI"],
     github: "https://github.com/Tariqul-stack/KeenKeeper",
     live: "https://keenkeeper-website.netlify.app",
     category: "Frontend",
@@ -66,12 +68,7 @@ const projectsData = [
     tagline: "BOOK MANAGEMENT APP",
     description:
       "A book management app enabling users to explore titles, save to wishlist, mark books as read, and track reading progress with beautiful visual analytics.",
-    techStack: [
-      { name: "React.js", icon: SiReact },
-      { name: "React Router", icon: SiReactrouter },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "Recharts", icon: TbChartPie },
-    ],
+    techStack: ["React.js", "React Router", "Tailwind CSS", "Recharts"],
     github: "https://github.com/Tariqul-stack/book-mood",
     live: "https://book-mood.netlify.app",
     category: "Frontend",
@@ -83,284 +80,387 @@ const projectsData = [
   },
 ];
 
-const ProjectCard = ({ project, index }) => {
-  const [currentImage, setCurrentImage] = useState(0);
-  const isOdd = index % 2 === 0;
+const cardVariants = {
+  hidden: { opacity: 0, y: 44 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut", delay: i * 0.1 },
+  }),
+};
+
+const headerVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const tabsVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.15 } },
+};
+
+function ProjectCard({ project, index, isDark }) {
+  const [slide, setSlide] = useState(0);
+  const isReverse = index % 2 !== 0;
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % project.images.length);
-    }, 2000);
-    return () => clearInterval(timer);
+    const t = setInterval(
+      () => setSlide((p) => (p + 1) % project.images.length),
+      2200,
+    );
+    return () => clearInterval(t);
   }, [project.images.length]);
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut", delay: index * 0.1 },
-    },
-  };
 
   return (
     <motion.div
+      custom={index}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      className="w-full"
+      viewport={{ once: true, amount: 0.15 }}
     >
       <div
-        className={`glass-card project-card-wrapper border border-white/8 bg-white/3 rounded-3xl p-5 
-          hover:border-white/12 hover:shadow-[0_0_40px_rgba(45,212,191,0.08)] 
-          transition-all duration-500 overflow-hidden backdrop-blur-[20px]
-          ${isOdd ? "flex flex-col lg:flex-row" : "flex flex-col lg:flex-row-reverse"}`}
+        className={`
+          flex flex-col overflow-hidden rounded-3xl border p-5 backdrop-blur-xl
+          transition-all duration-500
+          ${isReverse ? "lg:flex-row-reverse" : "lg:flex-row"}
+          ${
+            isDark
+              ? "bg-white/[0.03] border-white/[0.08] hover:border-white/[0.14] hover:shadow-[0_0_48px_rgba(45,212,191,0.07)]"
+              : "bg-white/55 border-indigo-200/40 hover:border-teal-400/40 hover:shadow-[0_0_48px_rgba(99,102,241,0.09)]"
+          }
+        `}
       >
-        {/* LEFT SIDE - IMAGE AREA */}
-        <div
-          className={`w-full mb-8 lg:mb-0 lg:px-4 ${isOdd ? "lg:w-3/5" : "lg:w-3/5"}`}
-        >
+        {/* IMAGE SIDE */}
+        <div className="w-full px-2 mb-8 lg:mb-0 lg:w-[58%]">
           <motion.div
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.015 }}
             transition={{ duration: 0.4 }}
-            className="relative w-full aspect-video overflow-hidden rounded-2xl bg-slate-900/50 
-              border border-white/8 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+            className={`
+              group relative w-full overflow-hidden rounded-2xl border
+              aspect-video
+              ${
+                isDark
+                  ? "bg-[#0a0f1e] border-white/[0.08]"
+                  : "bg-slate-100 border-indigo-200/40"
+              }
+            `}
           >
-            {/* Fake Browser Frame */}
-            <div className="absolute top-0 left-0 right-0 h-7 z-10 flex items-center px-3 gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
-              <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
-              <div className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
-              <div className="flex-1 mx-3 h-4 rounded-full bg-white/10 flex items-center px-2">
-                <span className="text-[9px] text-white/30 truncate">
+            {/* Browser bar */}
+            <div
+              className={`
+                absolute left-0 right-0 top-0 z-10 flex h-7 items-center gap-1.5 border-b px-3
+                ${
+                  isDark
+                    ? "bg-white/[0.04] border-white/[0.06]"
+                    : "bg-slate-200/80 border-slate-300/50"
+                }
+              `}
+            >
+              <span className="h-2.5 w-2.5 rounded-full bg-red-400/55" />
+              <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/55" />
+              <span className="h-2.5 w-2.5 rounded-full bg-green-400/55" />
+              <div
+                className={`mx-3 flex h-4 flex-1 items-center rounded-full px-2
+                  ${isDark ? "bg-white/[0.07]" : "bg-white/60"}
+                `}
+              >
+                <span
+                  className={`truncate font-mono text-[9px]
+                    ${isDark ? "text-white/25" : "text-slate-400"}
+                  `}
+                >
                   {project.live}
                 </span>
               </div>
             </div>
-            {/* Image Carousel - Stacked with Opacity Fade */}
-            <div className="absolute inset-0 top-7 w-full h-[calc(100%-28px)]">
+
+            {/* Slides */}
+            <div className="absolute inset-0 top-7">
               {project.images.map((img, i) => (
                 <div
                   key={i}
-                  className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-                  style={{ opacity: i === currentImage ? 1 : 0 }}
+                  className="absolute inset-0 transition-opacity duration-[900ms] ease-in-out"
+                  style={{ opacity: i === slide ? 1 : 0 }}
                 >
-                  <Image
+                  <img
                     src={img}
                     alt={`${project.name} preview ${i + 1}`}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
-                    priority={index === 0 && i === 0}
-                    quality={90}
+                    className="h-full w-full object-cover object-top"
                   />
                 </div>
               ))}
             </div>
 
-            {/* Carousel Dots - Bottom Left */}
-            <div className="absolute bottom-4 left-4 flex gap-2 z-20">
+            {/* Carousel dots */}
+            <div className="absolute bottom-3 left-3 z-20 flex gap-1.5">
               {project.images.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentImage(i)}
-                  className={`transition-all duration-300 ${
-                    i === currentImage
-                      ? "bg-[#2dd4bf] w-6 h-2 rounded-full"
-                      : "bg-white/30 w-2 h-2 rounded-full hover:bg-white/50"
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
+                  onClick={() => setSlide(i)}
+                  aria-label={`Slide ${i + 1}`}
+                  className={`h-[7px] rounded-full transition-all duration-300
+                    ${
+                      i === slide
+                        ? "w-5 bg-teal-400"
+                        : `w-[7px] ${isDark ? "bg-white/25" : "bg-slate-400/40"}`
+                    }
+                  `}
                 />
               ))}
             </div>
 
-            {/* Preview Badge - Bottom Right */}
+            {/* Preview badge */}
             <div
-              className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full 
-              text-xs font-medium text-white/70 backdrop-blur-md border border-white/10
-              bg-black/20"
+              className={`
+                absolute bottom-3 right-3 z-20 rounded-full border px-2.5 py-1
+                text-[10px] backdrop-blur-md
+                ${
+                  isDark
+                    ? "bg-black/25 border-white/10 text-white/30"
+                    : "bg-white/40 border-slate-300/40 text-slate-400"
+                }
+              `}
             >
               ⟳ Auto preview
+            </div>
+
+            {/* Hover badge */}
+            <div className="absolute bottom-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full border border-teal-400/25 bg-black/35 px-3 py-1 text-[10px] text-teal-400/80 opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
+              ✦ Hover preview
             </div>
           </motion.div>
         </div>
 
-        {/* RIGHT SIDE - PROJECT DETAILS */}
-        <div
-          className={`w-full flex flex-col justify-between lg:px-4 ${isOdd ? "lg:w-2/5" : "lg:w-2/5"}`}
-        >
-          {/* Top Badges */}
-          <div className="flex flex-wrap gap-3 mb-6">
-            <span
-              className="px-3.5 py-1.5 rounded-full text-xs font-semibold 
-              uppercase tracking-wider text-[#2dd4bf] border border-white/10 
-              backdrop-blur-md bg-white/5"
+        {/* INFO SIDE */}
+        <div className="flex w-full flex-col justify-between px-3 lg:w-[42%]">
+          <div>
+            {/* Badges */}
+            <div className="mb-4 flex flex-wrap gap-2">
+              <span
+                className={`rounded-full border px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-md
+                  ${
+                    isDark
+                      ? "bg-teal-400/10 border-teal-400/20 text-teal-400"
+                      : "bg-teal-100/60 border-teal-300/40 text-teal-700"
+                  }
+                `}
+              >
+                {project.tagline}
+              </span>
+              <span
+                className={`rounded-full border px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-md
+                  ${
+                    project.category === "Full Stack"
+                      ? isDark
+                        ? "bg-violet-400/10 border-violet-400/20 text-violet-400"
+                        : "bg-violet-100/60 border-violet-300/40 text-violet-700"
+                      : isDark
+                        ? "bg-teal-400/10 border-teal-400/20 text-teal-400"
+                        : "bg-teal-100/60 border-teal-300/40 text-teal-700"
+                  }
+                `}
+              >
+                {project.category}
+              </span>
+            </div>
+
+            {/* Project name */}
+            <h3
+              className={`mb-3 text-4xl font-bold leading-tight lg:text-[2.6rem]
+                ${isDark ? "text-slate-100" : "text-slate-900"}
+              `}
             >
-              {project.tagline}
-            </span>
-            <span
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold 
-              uppercase tracking-wider border border-white/10 backdrop-blur-md bg-white/5 ${
-                project.category === "Full Stack"
-                  ? "text-[#a78bfa]"
-                  : "text-[#2dd4bf]"
-              }`}
+              {project.name}
+            </h3>
+
+            {/* Description */}
+            <p
+              className={`mb-5 line-clamp-3 text-[15px] leading-relaxed
+                ${isDark ? "text-slate-400" : "text-slate-500"}
+              `}
             >
-              {project.category}
-            </span>
+              {project.description}
+            </p>
+
+            {/* Tech pills */}
+            <div className="mb-7 flex flex-wrap gap-2">
+              {project.techStack.map((tech) => {
+                const Icon = TECH_ICONS[tech];
+                return (
+                  <div
+                    key={tech}
+                    className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5
+                      text-[11px] font-medium backdrop-blur-md transition-colors duration-200
+                      ${
+                        isDark
+                          ? "bg-white/[0.05] border-white/[0.10] text-slate-300 hover:border-teal-500/30 hover:text-teal-400"
+                          : "bg-white/60 border-indigo-200/40 text-slate-600 hover:border-teal-400/40 hover:text-teal-600"
+                      }
+                    `}
+                  >
+                    {Icon && <Icon className="h-3.5 w-3.5" />}
+                    <span>{tech}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Project Name */}
-          <h3 className="project-title text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-            {project.name}
-          </h3>
-
-          {/* Description */}
-          <p className="project-description text-lg text-slate-400 mb-6 leading-relaxed line-clamp-3">
-            {project.description}
-          </p>
-
-          {/* Tech Stack Pills */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {project.techStack.map((tech) => {
-              const IconComponent = tech.icon;
-              return (
-                <div
-                  key={tech.name}
-                  className="project-tech-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full 
-                  text-xs font-medium bg-white/5 border border-white/10 
-                  text-slate-300 hover:border-teal-500/30 hover:text-teal-300 
-                  transition-colors duration-200 backdrop-blur-md"
-                >
-                  <IconComponent className="w-3.5 h-3.5" />
-                  <span>{tech.name}</span>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex gap-3 pt-4">
+          {/* Action buttons */}
+          <div className="flex gap-3">
             <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="project-code-btn flex-1 flex items-center justify-center gap-2 px-5 py-3 
-              rounded-lg bg-white/5 border border-white/10 text-white font-medium 
-              hover:border-white/20 hover:bg-white/8 transition-all duration-300 
-              backdrop-blur-md"
+              whileTap={{ scale: 0.97 }}
+              className="project-code-btn flex flex-1 items-center justify-center gap-2 rounded-xl border
+                px-5 py-3 text-sm font-medium backdrop-blur-md transition-all duration-300
+                bg-white/[0.05] border-white/[0.10] text-white hover:bg-white/[0.09] hover:border-white/20"
             >
-              <FiGithub className="w-4 h-4" />
-              <span>Code</span>
+              <FiGithub className="h-4 w-4" />
+              Code
             </motion.a>
+
             <motion.a
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex-1 flex items-center justify-center gap-2 px-5 py-3 
-              rounded-lg bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] text-white 
-              font-medium hover:shadow-lg hover:shadow-[#2dd4bf]/25 
-              transition-all duration-300"
+              whileTap={{ scale: 0.97 }}
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl
+                bg-gradient-to-r from-teal-400 to-indigo-500 px-5 py-3
+                text-sm font-medium text-white transition-all duration-300 hover:shadow-[0_6px_24px_rgba(45,212,191,0.30)]"
             >
-              <FiExternalLink className="w-4 h-4" />
-              <span>Live</span>
+              <FiExternalLink className="h-4 w-4" />
+              Live
             </motion.a>
           </div>
         </div>
       </div>
     </motion.div>
   );
-};
+}
 
 export default function Projects() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isDark = mounted ? theme === "dark" : true;
+
   const [activeTab, setActiveTab] = useState("All");
   const tabs = ["All", "Frontend", "Full Stack"];
 
-  const filteredProjects =
+  const filtered =
     activeTab === "All"
-      ? projectsData
-      : projectsData.filter((project) => project.category === activeTab);
-
-  const headerVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === activeTab);
 
   return (
     <section
       id="projects"
-      className="relative pt-28 md:pt-32 pb-24 overflow-hidden transition-colors duration-300"
+      className={`relative overflow-hidden pb-24 pt-28 transition-colors duration-300 md:pt-32
+        ${isDark ? "bg-[#07091a]" : "bg-[#f0f4ff]"}
+      `}
     >
-      {/* Background Effects */}
+      {/* Ambient orbs */}
       <div
-        className="absolute bottom-[10%] left-[-10%] w-[50%] h-[50%] rounded-full blur-[120px] pointer-events-none z-0"
-        style={{ backgroundColor: "var(--orb-teal)" }}
-      ></div>
+        className={`pointer-events-none absolute bottom-[8%] left-[-8%] h-[46%] w-[46%]
+          rounded-full blur-[110px]
+          ${isDark ? "bg-teal-400/[0.07]" : "bg-teal-400/[0.12]"}
+        `}
+      />
       <div
-        className="absolute top-[10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none z-0"
-        style={{ backgroundColor: "var(--orb-indigo)" }}
-      ></div>
+        className={`pointer-events-none absolute right-[-8%] top-[8%] h-[38%] w-[38%]
+          rounded-full blur-[110px]
+          ${isDark ? "bg-indigo-500/[0.06]" : "bg-indigo-400/[0.10]"}
+        `}
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-16"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-14 text-center"
         >
-          <p className="text-[#2dd4bf] text-sm font-semibold tracking-[0.2em] uppercase mb-2">
+          <p
+            className={`mb-2 text-[11px] font-semibold uppercase tracking-[0.22em]
+              ${isDark ? "text-teal-400" : "text-teal-700"}
+            `}
+          >
             What I&apos;ve Built
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] inline-block relative pb-2">
+          <h2
+            className={`relative inline-block pb-3 text-4xl font-bold md:text-5xl
+              ${isDark ? "text-slate-100" : "text-slate-900"}
+            `}
+          >
             Featured Projects
-            <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-2/3 h-1 bg-gradient-to-r from-transparent via-[#2dd4bf] to-transparent"></span>
+            <span className="absolute bottom-0 left-1/2 h-[3px] w-2/3 -translate-x-1/2 rounded-full bg-gradient-to-r from-transparent via-teal-400 to-transparent" />
           </h2>
         </motion.div>
 
-        {/* Filter Tabs */}
-        <div className="flex justify-center gap-3 sm:gap-4 mb-16 p-3 max-w-md mx-auto border border-white/8 rounded-full backdrop-blur-md bg-white/3">
+        {/* Filter tabs */}
+        <motion.div
+          variants={tabsVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className={`mx-auto mb-14 flex max-w-xs justify-center gap-2 rounded-full border p-1.5 backdrop-blur-xl
+            ${
+              isDark
+                ? "bg-white/[0.03] border-white/[0.08]"
+                : "bg-white/50 border-indigo-200/40"
+            }
+          `}
+        >
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeTab === tab
-                  ? "bg-[#2dd4bf] text-[#0a0f1e] shadow-[0_0_15px_rgba(45,212,191,0.4)]"
-                  : "bg-transparent text-[var(--text-secondary)] hover:text-[#2dd4bf] border border-transparent hover:border-[#2dd4bf]/30"
-              }`}
+              className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300
+                ${
+                  activeTab === tab
+                    ? "bg-teal-400 text-[#0a0f1e] shadow-[0_0_18px_rgba(45,212,191,0.35)]"
+                    : isDark
+                      ? "text-slate-400 hover:text-teal-400"
+                      : "text-slate-500 hover:text-teal-600"
+                }
+              `}
             >
               {tab}
             </button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Projects Stack */}
+        {/* Cards */}
         <div className="space-y-12">
           <AnimatePresence mode="wait">
-            {filteredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
-            ))}
+            {filtered.length === 0 ? (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className={`py-20 text-center text-base
+                  ${isDark ? "text-slate-500" : "text-slate-400"}
+                `}
+              >
+                No projects found in this category.
+              </motion.p>
+            ) : (
+              filtered.map((project, i) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={i}
+                  isDark={isDark}
+                />
+              ))
+            )}
           </AnimatePresence>
-          {filteredProjects.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center text-[var(--text-muted)] py-20"
-            >
-              No projects found in this category.
-            </motion.div>
-          )}
         </div>
       </div>
     </section>

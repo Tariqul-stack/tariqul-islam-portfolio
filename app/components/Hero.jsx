@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
-import { RiArrowDownLine } from 'react-icons/ri';
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { RiArrowDownLine } from "react-icons/ri";
 
 const roles = [
   "Frontend Developer",
   "React Developer",
   "Next.js Developer",
-  "UI Enthusiast"
+  "UI Enthusiast",
 ];
 
 export default function Hero() {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [currentText, setCurrentText] = useState('');
+  const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [showScroll, setShowScroll] = useState(true);
   const [profileImageError, setProfileImageError] = useState(false);
@@ -54,18 +54,18 @@ export default function Hero() {
         setShowScroll(true);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToProjects = (e) => {
     e.preventDefault();
-    const element = document.getElementById('projects');
+    const element = document.getElementById("projects");
     if (element) {
       const offsetTop = element.offsetTop - 80;
       window.scrollTo({
         top: offsetTop,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     }
   };
@@ -85,7 +85,7 @@ export default function Hero() {
     visible: {
       x: 0,
       opacity: 1,
-      transition: { type: 'spring', stiffness: 100, damping: 20 }
+      transition: { type: "spring", stiffness: 100, damping: 20 },
     },
   };
 
@@ -94,7 +94,7 @@ export default function Hero() {
     visible: {
       x: 0,
       opacity: 1,
-      transition: { type: 'spring', stiffness: 100, damping: 20, delay: 0.5 }
+      transition: { type: "spring", stiffness: 100, damping: 20, delay: 0.5 },
     },
   };
 
@@ -106,8 +106,8 @@ export default function Hero() {
         repeat: Infinity,
         ease: "easeInOut",
         delay: custom * 0.5,
-      }
-    })
+      },
+    }),
   };
 
   return (
@@ -118,12 +118,17 @@ export default function Hero() {
       {/* Background Effects */}
 
       {/* Blurred Orbs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none" style={{ backgroundColor: 'var(--orb-teal)' }}></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none" style={{ backgroundColor: 'var(--orb-indigo)' }}></div>
+      <div
+        className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] pointer-events-none opacity-70"
+        style={{ backgroundColor: "var(--orb-teal)" }}
+      ></div>
+      <div
+        className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none translate-x-1/4 translate-y-1/4 opacity-60"
+        style={{ backgroundColor: "var(--orb-indigo)" }}
+      ></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-10 lg:py-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-
           {/* Left Side: Text Content */}
           <motion.div
             className="flex flex-col space-y-6 order-2 lg:order-1 mt-8 lg:mt-0"
@@ -132,7 +137,10 @@ export default function Hero() {
             animate="visible"
           >
             {/* Badge */}
-            <motion.div variants={textVariants} className="flex items-start lg:items-center">
+            <motion.div
+              variants={textVariants}
+              className="flex items-start lg:items-center"
+            >
               <div className="glass-card inline-flex items-center px-4 py-2 rounded-full text-[#2dd4bf] text-sm font-medium">
                 <span className="flex w-2 h-2 rounded-full bg-[#2dd4bf] mr-2 animate-pulse"></span>
                 👋 Available for Remote & Freelance
@@ -141,28 +149,41 @@ export default function Hero() {
 
             {/* Greeting & Name */}
             <motion.div variants={textVariants}>
-              <h2 className="text-[#2dd4bf] text-lg font-medium mb-2">Hi, I&apos;m</h2>
+              <h2 className="text-[#2dd4bf] text-lg font-medium mb-2">
+                Hi, I&apos;m
+              </h2>
               <h1 className="text-5xl lg:text-7xl font-extrabold text-[var(--text-primary)] tracking-tight">
                 <span className="bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] bg-clip-text text-transparent">
                   Tariqul
-                </span>{' '}
+                </span>{" "}
                 Islam
               </h1>
             </motion.div>
 
             {/* Typewriter Role */}
-            <motion.div variants={textVariants} className="text-2xl lg:text-3xl font-semibold text-[var(--text-secondary)] h-10 flex items-center">
+            <motion.div
+              variants={textVariants}
+              className="text-2xl lg:text-3xl font-semibold text-[var(--text-secondary)] h-10 flex items-center"
+            >
               {currentText}
               <span className="w-[3px] h-8 bg-[#2dd4bf] ml-1 animate-pulse"></span>
             </motion.div>
 
             {/* Tagline */}
-            <motion.p variants={textVariants} className="text-[var(--text-secondary)] text-lg max-w-lg leading-relaxed">
-              I build clean, responsive web apps with React & Next.js. I&apos;m passionate about creating seamless digital experiences and turning complex problems into elegant solutions.
+            <motion.p
+              variants={textVariants}
+              className="text-[var(--text-secondary)] text-lg max-w-lg leading-relaxed"
+            >
+              I build clean, responsive web apps with React & Next.js. I&apos;m
+              passionate about creating seamless digital experiences and turning
+              complex problems into elegant solutions.
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div variants={textVariants} className="flex flex-wrap gap-4 pt-4">
+            <motion.div
+              variants={textVariants}
+              className="flex flex-wrap gap-4 pt-4"
+            >
               <button
                 onClick={scrollToProjects}
                 className="px-8 py-3 rounded-full font-medium text-[var(--text-primary)] bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] hover:shadow-lg hover:shadow-[#2dd4bf]/25 transition-all duration-300 transform hover:-translate-y-1"
@@ -180,14 +201,30 @@ export default function Hero() {
             </motion.div>
 
             {/* Social Icons */}
-            <motion.div variants={textVariants} className="flex items-center space-x-6 pt-4">
-              <a href="https://github.com/Tariqul-stack" target="_blank" rel="noopener noreferrer" className="glass-card p-3 text-[var(--text-secondary)] hover:text-[#2dd4bf] transition-colors duration-300 transform hover:scale-110">
+            <motion.div
+              variants={textVariants}
+              className="flex items-center space-x-6 pt-4"
+            >
+              <a
+                href="https://github.com/Tariqul-stack"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card p-3 text-[var(--text-secondary)] hover:text-[#2dd4bf] transition-colors duration-300 transform hover:scale-110"
+              >
                 <FiGithub className="w-7 h-7" />
               </a>
-              <a href="https://linkedin.com/in/tariqul-islam-dev" target="_blank" rel="noopener noreferrer" className="glass-card p-3 text-[var(--text-secondary)] hover:text-[#2dd4bf] transition-colors duration-300 transform hover:scale-110">
+              <a
+                href="https://linkedin.com/in/tariqul-islam-dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card p-3 text-[var(--text-secondary)] hover:text-[#2dd4bf] transition-colors duration-300 transform hover:scale-110"
+              >
                 <FiLinkedin className="w-7 h-7" />
               </a>
-              <a href="mailto:tariqul.dev0@gmail.com" className="glass-card p-3 text-[var(--text-secondary)] hover:text-[#2dd4bf] transition-colors duration-300 transform hover:scale-110">
+              <a
+                href="mailto:tariqul.dev0@gmail.com"
+                className="glass-card p-3 text-[var(--text-secondary)] hover:text-[#2dd4bf] transition-colors duration-300 transform hover:scale-110"
+              >
                 <FiMail className="w-7 h-7" />
               </a>
             </motion.div>
@@ -261,14 +298,13 @@ export default function Hero() {
             >
               <span className="font-medium text-sm">1+ yr exp 🚀</span>
             </motion.div>
-
           </motion.div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       <motion.div
-        className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 z-20 ${showScroll ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 z-20 ${showScroll ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: showScroll ? 1 : 0 }}
         transition={{ delay: 1.5, duration: 0.5 }}
@@ -277,9 +313,13 @@ export default function Hero() {
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           className="text-[var(--text-secondary)] flex flex-col items-center cursor-pointer hover:text-[#2dd4bf] transition-colors duration-300"
-          onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
+          onClick={() =>
+            window.scrollBy({ top: window.innerHeight, behavior: "smooth" })
+          }
         >
-          <span className="text-xs uppercase tracking-widest mb-2 font-medium">Scroll</span>
+          <span className="text-xs uppercase tracking-widest mb-2 font-medium">
+            Scroll
+          </span>
           <RiArrowDownLine className="w-6 h-6" />
         </motion.div>
       </motion.div>
