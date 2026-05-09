@@ -134,6 +134,7 @@ function ProjectCard({ project, index, isDark }) {
         {/* IMAGE SIDE */}
         <div className="w-full px-2 mb-8 lg:mb-0 lg:w-[58%]">
           <motion.div
+            suppressHydrationWarning
             whileHover={{ scale: 1.015 }}
             transition={{ duration: 0.4 }}
             className={`
@@ -309,33 +310,25 @@ function ProjectCard({ project, index, isDark }) {
 
           {/* Action buttons */}
           <div className="flex gap-3">
-            <motion.a
+            <a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              className="project-code-btn flex flex-1 items-center justify-center gap-2 rounded-xl border
-                px-5 py-3 text-sm font-medium backdrop-blur-md transition-all duration-300
-                bg-white/[0.05] border-white/[0.10] text-white hover:bg-white/[0.09] hover:border-white/20"
+              className="project-code-btn flex flex-1 items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-medium backdrop-blur-md transition-all duration-300 bg-white/[0.05] border-white/[0.10] text-white hover:bg-white/[0.09] hover:border-white/20 cursor-pointer"
             >
               <FiGithub className="h-4 w-4" />
               Code
-            </motion.a>
+            </a>
 
-            <motion.a
+            <a
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl
-                bg-gradient-to-r from-teal-400 to-indigo-500 px-5 py-3
-                text-sm font-medium text-white transition-all duration-300 hover:shadow-[0_6px_24px_rgba(45,212,191,0.30)]"
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-teal-400 to-indigo-500 px-5 py-3 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
             >
               <FiExternalLink className="h-4 w-4" />
               Live
-            </motion.a>
+            </a>
           </div>
         </div>
       </div>
