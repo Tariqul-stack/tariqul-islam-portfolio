@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { RiArrowUpLine } from 'react-icons/ri';
-import { SiGithub, SiWhatsapp } from 'react-icons/si';
-import { FiLinkedin } from 'react-icons/fi';
-import { MdEmail } from 'react-icons/md';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { RiArrowUpLine } from "react-icons/ri";
+import { SiGithub, SiWhatsapp } from "react-icons/si";
+import { FiLinkedin } from "react-icons/fi";
+import { MdEmail } from "react-icons/md";
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,14 +19,14 @@ const BackToTop = () => {
       }
     };
 
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
@@ -50,25 +50,31 @@ const BackToTop = () => {
 
 export default function Footer() {
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
   ];
 
   const socials = [
-    { icon: SiGithub, href: 'https://github.com/Tariqul-stack' },
-    { icon: FiLinkedin, href: 'https://linkedin.com/in/tariqul-islam-dev' },
-    { icon: MdEmail, href: 'mailto:tariqul.dev0@gmail.com' },
-    { icon: SiWhatsapp, href: 'https://wa.me/8801911296716' },
+    { icon: SiGithub, href: "https://github.com/Tariqul-stack" },
+    { icon: FiLinkedin, href: "https://linkedin.com/in/tariqul-islam-dev" },
+    { icon: MdEmail, href: "mailto:tariqul.dev0@gmail.com" },
+    { icon: SiWhatsapp, href: "https://wa.me/8801911296716" },
   ];
 
   return (
     <footer className="footer-glass pt-16 pb-8 transition-colors duration-300 overflow-hidden">
       {/* Background Orbs */}
-      <div className="absolute bottom-0 left-[10%] w-[200px] h-[200px] rounded-full blur-[80px] pointer-events-none opacity-20" style={{ backgroundColor: '#2dd4bf' }}></div>
-      <div className="absolute top-0 right-[10%] w-[200px] h-[200px] rounded-full blur-[80px] pointer-events-none opacity-10" style={{ backgroundColor: '#6366f1' }}></div>
+      <div
+        className="absolute bottom-0 left-[10%] w-[200px] h-[200px] rounded-full blur-[80px] pointer-events-none opacity-20"
+        style={{ backgroundColor: "#2dd4bf" }}
+      ></div>
+      <div
+        className="absolute top-0 right-[10%] w-[200px] h-[200px] rounded-full blur-[80px] pointer-events-none opacity-10"
+        style={{ backgroundColor: "#6366f1" }}
+      ></div>
 
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
         {/* Top Area */}
@@ -120,9 +126,11 @@ export default function Footer() {
 
         {/* Bottom Area */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[var(--text-muted)] text-xs relative z-10">
-          <p>© {new Date().getFullYear()} Tariqul Islam. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Tariqul Islam. All rights reserved.
+          </p>
           <p className="flex items-center gap-1">
-            Built with <span className="text-red-500 text-sm">❤️</span> using Next.js & Tailwind CSS
+            Let's Build Something Amazing...
           </p>
         </div>
       </div>

@@ -6,6 +6,11 @@
   --color-indigo: #6366f1;
 }
 
+@keyframes spinRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 :root[data-theme="dark"] {
   --bg-primary: #0a0f1e;
   --bg-secondary: #0d1628;
@@ -238,6 +243,16 @@ body {
 
 [data-theme="light"] .project-code-btn:hover svg {
   color: #0f766e !important;
+}
+
+/* ===== GLASS PROFILE CARD LIGHT MODE ===== */
+[data-theme="light"] #glassProfileCard {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(45, 212, 191, 0.3) !important;
+  box-shadow: 
+    0 20px 60px rgba(45, 212, 191, 0.15),
+    0 0 0 1px rgba(45, 212, 191, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
 }
 
 
