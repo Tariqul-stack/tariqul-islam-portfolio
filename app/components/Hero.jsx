@@ -231,7 +231,7 @@ export default function Hero() {
                 View Projects
               </button>
               <a
-                href="/resume.pdf"
+                href="/Tariqul_Islam_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-card px-8 py-3 rounded-full font-medium text-[#2dd4bf] hover:bg-[#2dd4bf]/10 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center"
@@ -280,56 +280,24 @@ export default function Hero() {
           >
             <div
               id="glassProfileCard"
-              className="relative flex flex-col items-center 
-                justify-center gap-3 cursor-pointer overflow-hidden
-                rounded-[28px] w-[280px] h-[350px]
-                bg-white/5 border border-[#2dd4bf]/20
-                backdrop-blur-xl
-                transition-[transform,box-shadow] duration-100 ease-linear
-                [transform-style:preserve-3d]
-                shadow-[0_20px_60px_rgba(45,212,191,0.12),0_0_0_1px_rgba(45,212,191,0.1),inset_0_1px_0_rgba(255,255,255,0.1)]
-                [data-theme=light]:bg-white/75
-                [data-theme=light]:border-[#2dd4bf]/30
-                [data-theme=light]:shadow-[0_20px_60px_rgba(45,212,191,0.15),0_0_0_1px_rgba(45,212,191,0.15),inset_0_1px_0_rgba(255,255,255,0.9)]"
+              suppressHydrationWarning
+              className="relative flex flex-col items-center justify-center gap-3 cursor-pointer overflow-hidden rounded-[28px] w-[280px] h-[350px] bg-white/5 border border-[#2dd4bf]/20 backdrop-blur-xl transition-[transform,box-shadow] duration-100 ease-linear [transform-style:preserve-3d] shadow-[0_20px_60px_rgba(45,212,191,0.12),0_0_0_1px_rgba(45,212,191,0.1),inset_0_1px_0_rgba(255,255,255,0.1)] [data-theme=light]:bg-white/75 [data-theme=light]:border-[#2dd4bf]/30 [data-theme=light]:shadow-[0_20px_60px_rgba(45,212,191,0.15),0_0_0_1px_rgba(45,212,191,0.15),inset_0_1px_0_rgba(255,255,255,0.9)]"
             >
               {/* Top shimmer line */}
-              <div
-                className="absolute top-0 left-0 right-0 h-px 
-                bg-gradient-to-r from-transparent 
-                via-[#2dd4bf]/70 via-[#6366f1]/50 
-                to-transparent pointer-events-none"
-              />
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2dd4bf]/70 via-[#6366f1]/50 to-transparent pointer-events-none" />
 
               {/* Light reflection overlay */}
-              <div
-                className="absolute top-0 left-0 w-[60%] h-[50%] 
-                rounded-[28px] pointer-events-none
-                bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.07),transparent_70%)]"
-              />
+              <div className="absolute top-0 left-0 w-[60%] h-[50%] rounded-[28px] pointer-events-none bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.07),transparent_70%)]" />
 
               {/* Profile image with spinning ring */}
-              <div
-                className="relative w-[160px] h-[160px] 
-                [transform:translateZ(20px)]"
-              >
+              <div className="relative w-[160px] h-[160px] [transform:translateZ(20px)]">
                 {/* Spinning gradient ring */}
-                <div
-                  className="absolute inset-0 rounded-full p-[3px]
-                  [background:conic-gradient(from_0deg,#2dd4bf,#6366f1,#2dd4bf)]
-                  [animation:spinRing_4s_linear_infinite]"
-                >
-                  <div
-                    className="w-full h-full rounded-full 
-                    bg-[var(--bg-primary)]"
-                  />
+                <div className="absolute inset-0 rounded-full p-[3px] [background:conic-gradient(from_0deg,#2dd4bf,#6366f1,#2dd4bf)] [animation:spinRing_4s_linear_infinite]">
+                  <div className="w-full h-full rounded-full bg-[var(--bg-primary)]" />
                 </div>
 
                 {/* Profile image */}
-                <div
-                  className="absolute top-1/2 left-1/2 
-                  -translate-x-1/2 -translate-y-1/2
-                  w-[140px] h-[140px] rounded-full overflow-hidden"
-                >
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[140px] rounded-full overflow-hidden">
                   {!profileImageError ? (
                     <Image
                       src="/images/portfolio-img.png"
@@ -339,11 +307,7 @@ export default function Hero() {
                       priority
                     />
                   ) : (
-                    <div
-                      className="absolute inset-0 flex flex-col 
-                      items-center justify-center text-center
-                      bg-gradient-to-br from-slate-700 to-slate-900"
-                    >
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-gradient-to-br from-slate-700 to-slate-900">
                       <span className="text-white text-3xl font-extrabold">
                         TI
                       </span>
@@ -353,41 +317,21 @@ export default function Hero() {
               </div>
 
               {/* Name and title */}
-              <div
-                className="text-center z-10 
-                [transform:translateZ(15px)]"
-              >
-                <p
-                  className="text-base font-semibold tracking-[0.01em]
-                  text-[var(--text-primary)] m-0"
-                >
+              <div className="text-center z-10 [transform:translateZ(15px)]">
+                <p className="text-base font-semibold tracking-[0.01em] text-[var(--text-primary)] m-0">
                   Tariqul Islam
                 </p>
-                <p
-                  className="text-[10px] text-[#2dd4bf] 
-                  tracking-[0.18em] uppercase mt-1 m-0"
-                >
+                <p className="text-[10px] text-[#2dd4bf] tracking-[0.18em] uppercase mt-1 m-0">
                   Frontend Dev
                 </p>
               </div>
 
               {/* Bottom tech badges */}
-              <div
-                className="flex gap-1.5 z-10 
-                [transform:translateZ(10px)]"
-              >
-                <span
-                  className="text-[10px] px-[10px] py-[3px] 
-                  rounded-full bg-[#2dd4bf]/10 text-[#2dd4bf] 
-                  border border-[#2dd4bf]/30"
-                >
+              <div className="flex gap-1.5 z-10 [transform:translateZ(10px)]">
+                <span className="text-[10px] px-[10px] py-[3px] rounded-full bg-[#2dd4bf]/10 text-[#2dd4bf] border border-[#2dd4bf]/30">
                   React
                 </span>
-                <span
-                  className="text-[10px] px-[10px] py-[3px] 
-                  rounded-full bg-[#6366f1]/10 text-[#818cf8] 
-                  border border-[#6366f1]/30"
-                >
+                <span className="text-[10px] px-[10px] py-[3px] rounded-full bg-[#6366f1]/10 text-[#818cf8] border border-[#6366f1]/30">
                   Next.js
                 </span>
               </div>
@@ -395,10 +339,8 @@ export default function Hero() {
 
             {/* Floating Badge — Top Right: React */}
             <motion.div
-              className="absolute top-[5%] right-[0%] glass-card 
-                flex items-center gap-2 px-3 py-2 rounded-xl
-                text-sm font-medium text-[var(--text-primary)]
-                border border-white/10 z-20"
+              suppressHydrationWarning
+              className="absolute top-[5%] right-[0%] glass-card flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-[var(--text-primary)] border border-white/10 z-20"
               animate={{ y: [0, -8, 0] }}
               transition={{
                 duration: 3,
@@ -413,10 +355,8 @@ export default function Hero() {
 
             {/* Floating Badge — Bottom Left: Next.js */}
             <motion.div
-              className="absolute bottom-[10%] left-[0%] glass-card
-                flex items-center gap-2 px-3 py-2 rounded-xl
-                text-sm font-medium text-[var(--text-primary)]
-                border border-white/10 z-20"
+              suppressHydrationWarning
+              className="absolute bottom-[10%] left-[0%] glass-card flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-[var(--text-primary)] border border-white/10 z-20"
               animate={{ y: [0, -8, 0] }}
               transition={{
                 duration: 3,
@@ -431,10 +371,8 @@ export default function Hero() {
 
             {/* Floating Badge — Middle Left: 1+ yr exp */}
             <motion.div
-              className="absolute top-[35%] left-[0%] glass-card
-                flex items-center gap-2 px-3 py-2 rounded-xl
-                text-sm font-medium text-[var(--text-primary)]
-                border border-white/10 z-20"
+              suppressHydrationWarning
+              className="absolute top-[35%] left-[0%] glass-card flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-[var(--text-primary)] border border-white/10 z-20"
               animate={{ y: [0, -8, 0] }}
               transition={{
                 duration: 3,

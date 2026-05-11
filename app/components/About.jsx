@@ -159,7 +159,7 @@ export default function About() {
             {/* Download CV Button */}
             <div>
               <a
-                href="/resume.pdf"
+                href="/Tariqul_Islam_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-medium text-[var(--text-primary)] bg-gradient-to-r from-[#2dd4bf] to-[#6366f1] hover:shadow-lg hover:shadow-[#2dd4bf]/25 transition-all duration-300 transform hover:-translate-y-1"
