@@ -10,6 +10,8 @@ import {
   SiMongodb,
   SiReactrouter,
   SiDaisyui,
+  SiExpress,
+  SiFramer,
 } from "react-icons/si";
 import { TbChartPie } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
@@ -23,6 +25,8 @@ const TECH_ICONS = {
   "Tailwind CSS": SiTailwindcss,
   MongoDB: SiMongodb,
   "Better Auth": MdSecurity,
+  "Express.js": SiExpress,
+  "Framer Motion": SiFramer,
   "React Router": SiReactrouter,
   Recharts: TbChartPie,
   DaisyUI: SiDaisyui,
@@ -30,6 +34,29 @@ const TECH_ICONS = {
 };
 
 const PROJECTS = [
+  {
+    id: 0,
+    name: "IdeaVault",
+    tagline: "STARTUP IDEA PLATFORM",
+    description:
+      "A full-stack startup idea sharing platform where innovators can post concepts, explore trending ideas, leave comments, bookmark favorites, and manage their submissions — all with secure Google OAuth and JWT authentication.",
+    techStack: [
+      "Next.js",
+      "Tailwind CSS",
+      "MongoDB",
+      "Express.js",
+      "Better Auth",
+      "Framer Motion",
+    ],
+    github: "https://github.com/Tariqul-stack/IdeaVault-client",
+    live: "https://idea-vault-client-kohl.vercel.app",
+    category: "Full Stack",
+    images: [
+      "/images/ideaVault-1.png",
+      "/images/ideaVault-2.png",
+      "/images/ideaVault-3.png",
+    ],
+  },
   {
     id: 1,
     name: "QurbaniHat",
