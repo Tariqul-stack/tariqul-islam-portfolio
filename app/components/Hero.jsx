@@ -5,14 +5,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { RiArrowDownLine } from "react-icons/ri";
-import { SiReact, SiNextdotjs } from "react-icons/si";
+import { SiReact, SiNextdotjs, SiNodedotjs } from "react-icons/si";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
 const roles = [
-  "Frontend Developer",
+  "Full-Stack Developer",
   "React Developer",
   "Next.js Developer",
-  "UI Enthusiast",
+  "Node.js Developer",
 ];
 
 export default function Hero() {
@@ -214,9 +214,9 @@ export default function Hero() {
               variants={textVariants}
               className="text-[var(--text-secondary)] text-lg max-w-lg leading-relaxed"
             >
-              I build clean, responsive web apps with React & Next.js. I&apos;m
-              passionate about creating seamless digital experiences and turning
-              complex problems into elegant solutions.
+              I build and ship production-ready full-stack web apps with React,
+              Next.js, Node.js & MongoDB. Passionate about clean architecture,
+              smooth UX, and turning ideas into live products.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -322,7 +322,7 @@ export default function Hero() {
                   Tariqul Islam
                 </p>
                 <p className="text-[10px] text-[#2dd4bf] tracking-[0.18em] uppercase mt-1 m-0">
-                  Frontend Dev
+                  Full-Stack Dev
                 </p>
               </div>
 
@@ -333,6 +333,9 @@ export default function Hero() {
                 </span>
                 <span className="text-[10px] px-[10px] py-[3px] rounded-full bg-[#6366f1]/10 text-[#818cf8] border border-[#6366f1]/30">
                   Next.js
+                </span>
+                <span className="text-[10px] px-[10px] py-[3px] rounded-full bg-[#339933]/10 text-[#4ade80] border border-[#339933]/30">
+                  Node.js
                 </span>
               </div>
             </div>
@@ -369,7 +372,7 @@ export default function Hero() {
               <span>Next.js</span>
             </motion.div>
 
-            {/* Floating Badge — Middle Left: 1+ yr exp */}
+            {/* Floating Badge — Middle Left: Node.js */}
             <motion.div
               suppressHydrationWarning
               className="absolute top-[35%] left-[0%] glass-card flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-[var(--text-primary)] border border-white/10 z-20"
@@ -381,7 +384,8 @@ export default function Hero() {
                 delay: 0.8,
               }}
             >
-              <span>1+ yr exp 🚀</span>
+              <SiNodedotjs className="text-[#4ade80] w-4 h-4" />
+              <span>Node.js</span>
             </motion.div>
           </motion.div>
         </div>

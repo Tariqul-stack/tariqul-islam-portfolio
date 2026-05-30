@@ -107,14 +107,15 @@ export default function About() {
 
             {/* Story Paragraph */}
             <p className="text-[var(--text-secondary)] text-lg leading-relaxed mb-8">
-              I&apos;m a Computer Science student and self-driven Frontend
-              Developer passionate about building clean, responsive, and
-              user-friendly web applications. My journey started with curiosity
-              — I wanted to understand how websites work and how great UI comes
-              to life. That curiosity turned into a deep passion for React,
-              Next.js, and modern frontend development. I love clean component
-              architecture, smooth animations, and building things that feel
-              great to use.
+              I&apos;m a Full-Stack Developer and Computer Science student
+              passionate about building production-ready web applications that
+              are fast, clean, and intuitive. What started as curiosity about
+              how websites work has grown into hands-on experience shipping real
+              full-stack products — from authentication systems to data
+              dashboards. I specialize in React, Next.js, Node.js, and MongoDB,
+              and I love crafting clean component architecture, smooth
+              animations, and seamless user experiences from frontend to
+              backend.
             </p>
 
             {/* Highlight Cards Row */}
