@@ -165,10 +165,10 @@ const categories = [
 ];
 
 const skillBars = [
-  { name: "HTML/CSS", percentage: 85 },
-  { name: "JavaScript", percentage: 75 },
-  { name: "React.js", percentage: 70 },
-  { name: "Next.js", percentage: 60 },
+  { name: "React.js", percentage: 75 },
+  { name: "Next.js", percentage: 70 },
+  { name: "Node.js & Express.js", percentage: 60 },
+  { name: "MongoDB & REST API", percentage: 60 },
 ];
 
 export default function Skills() {
@@ -280,23 +280,21 @@ export default function Skills() {
             Currently Exploring 🚀
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
-            {[
-              "Next.js Advanced Patterns",
-              "BetterAuth Deep Dive",
-              "Full-Stack Architecture",
-            ].map((item, index) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                className="glass-card inline-flex items-center px-6 py-3 rounded-full border-dashed text-[#2dd4bf] text-sm font-medium hover:border-[#2dd4bf] hover:bg-[#2dd4bf]/5 transition-colors duration-300"
-              >
-                <span className="w-2 h-2 rounded-full bg-[#2dd4bf] mr-3 animate-pulse"></span>
-                {item}
-              </motion.div>
-            ))}
+            {["TypeScript", "PostgreSQL", "AI API Integration"].map(
+              (item, index) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                  className="glass-card inline-flex items-center px-6 py-3 rounded-full border-dashed text-[#2dd4bf] text-sm font-medium hover:border-[#2dd4bf] hover:bg-[#2dd4bf]/5 transition-colors duration-300"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#2dd4bf] mr-3 animate-pulse"></span>
+                  {item}
+                </motion.div>
+              ),
+            )}
           </div>
         </motion.div>
 
