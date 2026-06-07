@@ -231,7 +231,7 @@ export default function Hero() {
                 View Projects
               </button>
               <a
-                href="/Tariqul_Islam_Resume.pdf"
+                href="/Tariqul_Islam_Full-Stack_Developer_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-card px-8 py-3 rounded-full font-medium text-[#2dd4bf] hover:bg-[#2dd4bf]/10 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center"
