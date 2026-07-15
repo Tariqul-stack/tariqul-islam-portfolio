@@ -12,6 +12,8 @@ import {
   SiDaisyui,
   SiExpress,
   SiFramer,
+  SiNodedotjs,
+  SiStripe,
 } from "react-icons/si";
 import { TbChartPie } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
@@ -31,11 +33,30 @@ const TECH_ICONS = {
   Recharts: TbChartPie,
   DaisyUI: SiDaisyui,
   "React Icons": RiReactjsLine,
+  "Node.js": SiNodedotjs,
+  "Stripe": SiStripe,
+  "JWT": MdSecurity,
 };
 
 const PROJECTS = [
   {
-    id: 0,
+    id: 1,
+    name: "LegalEase",
+    tagline: "LAWYER HIRING PLATFORM",
+    description:
+      "A full-stack MERN platform connecting legal seekers with verified lawyers. Features role-based dashboards for users, lawyers, and admins — with Stripe payments, Google OAuth, JWT auth, and real-time analytics.",
+    techStack: ["Next.js", "Node.js", "Express.js", "MongoDB", "Stripe", "JWT", "Tailwind CSS"],
+    github: "https://github.com/Tariqul-stack/LegalEase_client",
+    live: "https://legal-ease-client-jet.vercel.app",
+    category: "Full Stack",
+    images: [
+      "/images/legalease-1.png",
+      "/images/legalease-2.png",
+      "/images/legalease-3.png",
+    ],
+  },
+  {
+    id: 2,
     name: "IdeaVault",
     tagline: "STARTUP IDEA PLATFORM",
     description:
@@ -58,7 +79,7 @@ const PROJECTS = [
     ],
   },
   {
-    id: 1,
+    id: 3,
     name: "QurbaniHat",
     tagline: "LIVESTOCK BOOKING PLATFORM",
     description:
@@ -74,7 +95,7 @@ const PROJECTS = [
     ],
   },
   {
-    id: 2,
+    id: 4,
     name: "KeenKeeper",
     tagline: "FRIENDSHIP TRACKING APP",
     description:
@@ -90,7 +111,7 @@ const PROJECTS = [
     ],
   },
   {
-    id: 3,
+    id: 5,
     name: "Book Mood",
     tagline: "BOOK MANAGEMENT APP",
     description:
