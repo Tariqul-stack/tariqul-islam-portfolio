@@ -14,6 +14,7 @@ import {
   SiFramer,
   SiNodedotjs,
   SiStripe,
+  SiTypescript,
 } from "react-icons/si";
 import { TbChartPie } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
@@ -36,11 +37,28 @@ const TECH_ICONS = {
   "Node.js": SiNodedotjs,
   "Stripe": SiStripe,
   "JWT": MdSecurity,
+  "TypeScript": SiTypescript,
 };
 
 const PROJECTS = [
   {
     id: 1,
+    name: "CourseNest",
+    tagline: "EDTECH SAAS PLATFORM",
+    description:
+      "A full-stack EdTech SaaS platform where teachers create and sell courses, students enroll and learn with progress tracking, and a built-in Community Q&A system connects learners with expert mentors — all with role-based dashboards and certificate generation.",
+    techStack: ["Next.js 16", "TypeScript", "Node.js", "Express.js", "MongoDB", "JWT", "Tailwind CSS"],
+    github: "https://github.com/Tariqul-stack/coursenest-client",
+    live: "https://coursenest-client.vercel.app",
+    category: "Full Stack",
+    images: [
+      "/images/coursenest-1.png",
+      "/images/coursenest-2.png",
+      "/images/coursenest-3.png",
+    ],
+  },
+  {
+    id: 2,
     name: "LegalEase",
     tagline: "LAWYER HIRING PLATFORM",
     description:
@@ -56,7 +74,7 @@ const PROJECTS = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     name: "IdeaVault",
     tagline: "STARTUP IDEA PLATFORM",
     description:
@@ -79,7 +97,7 @@ const PROJECTS = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     name: "QurbaniHat",
     tagline: "LIVESTOCK BOOKING PLATFORM",
     description:
@@ -95,7 +113,7 @@ const PROJECTS = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     name: "KeenKeeper",
     tagline: "FRIENDSHIP TRACKING APP",
     description:
@@ -111,7 +129,7 @@ const PROJECTS = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     name: "Book Mood",
     tagline: "BOOK MANAGEMENT APP",
     description:

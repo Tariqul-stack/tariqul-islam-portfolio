@@ -34,21 +34,23 @@ FAVICON INSTRUCTIONS:
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth" data-theme="dark">
+    <html lang="en" className="scroll-smooth" data-theme="dark"
+      dir="ltr"
+    >
       <body className="text-[var(--text-primary)] selection:bg-[color:rgba(45,212,191,0.3)] selection:text-[#2dd4bf] transition-colors duration-300">
         <ClientProviders>
           <Loader />
           <CursorGlow />
-          
+
           <main className="relative min-h-screen overflow-hidden">
             {/* Fixed glow background - stays behind everything */}
-            <div 
-              aria-hidden="true" 
+            <div
+              aria-hidden="true"
               className="fixed inset-0 -z-20"
               style={{ background: 'var(--global-bg)' }}
             />
             {/* Fixed dot grid - stays behind everything */}
-            <div 
+            <div
               aria-hidden="true"
               className="fixed inset-0 -z-10 opacity-[0.12]"
               style={{
@@ -57,7 +59,7 @@ export default function RootLayout({ children }) {
               }}
             />
             {/* Noise texture overlay */}
-            <div 
+            <div
               aria-hidden="true"
               className="fixed inset-0 -z-10 pointer-events-none opacity-[0.03]"
               style={{
