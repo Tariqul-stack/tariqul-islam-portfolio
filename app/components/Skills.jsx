@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   SiJavascript,
+  SiTypescript,
   SiHtml5,
   SiCss,
   SiReact,
@@ -29,6 +30,12 @@ const skillsData = [
     category: "Languages",
     icon: SiJavascript,
     color: "text-yellow-400",
+  },
+  {
+    name: "TypeScript",
+    category: "Languages",
+    icon: SiTypescript,
+    color: "text-blue-500",
   },
   {
     name: "HTML5",
@@ -277,10 +284,10 @@ export default function Skills() {
           className="mt-20 flex flex-col items-center"
         >
           <h3 className="text-xl font-bold text-[#2dd4bf] mb-6">
-            Currently Exploring 🚀
+            Currently Exploring
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
-            {["TypeScript", "PostgreSQL", "AI API Integration"].map(
+            {["PostgreSQL", "AI API Integration", "Full Stack Patterns"].map(
               (item, index) => (
                 <motion.div
                   key={item}
